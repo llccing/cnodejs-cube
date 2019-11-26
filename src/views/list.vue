@@ -136,6 +136,7 @@ export default {
         .item-header
           display flex
           align-items center
+          line-height 1.2
           .tab
             padding: 4px 8px
             border-radius 4px
