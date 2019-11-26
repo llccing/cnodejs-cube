@@ -61,7 +61,7 @@ export default {
     }
   },
   methods: {
-    async getList(isRefresh) {
+    async getList() {
       const toast = this.$createToast({
         txt: 'Loading...',
         mask: true,
@@ -76,11 +76,9 @@ export default {
         tab: this.type,
         mdrender: 'false'
       }
-      const res = await this.$axios.get('https://cnodejs.org/api/v1/topics', { params })
-
-      if (!isRefresh) {
-        this.items.push(...this.formatData(res.data.data))
-      }
+      const res = await this.$axios.get('/topics', { params })
+      this.items.splice(0, this.items.length)
+      this.items.push(...this.formatData(res.data.data))
     },
 
     // 下拉加载
