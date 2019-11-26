@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <nav-bar :title="TYPE_NAME[title]">
-      <div slot="left" class="navbar-left" @click="toggleDrawer">
+    <nav-bar @on-back="onBack" :title="title">
+      <div v-if="title !== '详情'" slot="left" class="navbar-left" @click="toggleDrawer">
         <img class="logo" src="../assets/menu.svg" alt />
       </div>
     </nav-bar>
@@ -17,21 +17,33 @@ export default {
     return {
       title: '顶部栏',
       showDrawer: false,
-      TYPE_NAME
     }
   },
   methods: {
     toggleDrawer() {
       this.$store.commit('toggleDrawer')
+    },
+    onBack(){
+      this.$router.go(-1)
     }
   },
   watch: {
     '$route.params.type': {
       handler(v) {
-        this.title = v
+        this.title = TYPE_NAME[v]
       },
       deep: true,
       immediate: true
+    },
+    '$route.params': {
+      deep: true,
+      immediate: true,
+      handler(v){
+        // 有id属性说明是详情页，title变为详情
+        if(v.id){
+          this.title = '详情'
+        }
+      },
     }
   },
   components: {

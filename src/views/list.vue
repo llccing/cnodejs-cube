@@ -128,6 +128,7 @@ export default {
     .scroll-box
       .scroll-box-item
         // display block
+        cursor pointer
         padding 8px 16px
         border-bottom 1px solid rgba(0,0,0,0.08)
 

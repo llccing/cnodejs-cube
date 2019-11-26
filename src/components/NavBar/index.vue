@@ -2,7 +2,7 @@
   <div class="navbar">
     <slot name="left">
       <div class="navbar-left">
-        <span class="navbar-back-wrap">
+        <span @click="cbBack" class="navbar-back-wrap">
           <i class="cubeic-back"></i>
           <span>返回</span>
         </span>
@@ -23,6 +23,11 @@
 export default {
   props: {
     title: String
+  },
+  methods:{
+    cbBack(){
+      this.$emit('on-back')
+    }
   }
 }
 </script>
