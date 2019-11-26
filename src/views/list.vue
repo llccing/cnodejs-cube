@@ -57,7 +57,9 @@ export default {
       },
 
       page: 1,
-      limit: 10
+      limit: 10,
+      // 上一个选中的类型
+      preType: '',
     }
   },
   methods: {
@@ -69,6 +71,15 @@ export default {
       })
       toast.show()
 
+      let isNewType = false
+      if (this.preType !== this.type) {
+        isNewType = true
+      }
+
+      if (isNewType) {
+        this.page = 1
+      }
+
       const { page, limit } = this
       let params = {
         page,
@@ -76,8 +87,14 @@ export default {
         tab: this.type,
         mdrender: 'false'
       }
+      this.preType = this.type
       const res = await this.$axios.get('/topics', { params })
-      this.items.splice(0, this.items.length)
+
+      if (isNewType) {
+        this.items.splice(0, this.items.length)
+        isNewType = false
+      }
+
       this.items.push(...this.formatData(res.data.data))
     },
 
