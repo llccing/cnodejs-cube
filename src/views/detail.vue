@@ -56,7 +56,7 @@ export default {
   padding 0 10px
   .title
     font-size 24px
-    line-height 2
+    line-height 1.5
   .intro
     display flex
     justify-content space-between
