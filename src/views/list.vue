@@ -1,5 +1,6 @@
 <template>
   <div class="list">
+    <div @click="toggleDrawer" class="mask" v-if="drawerOpen"></div>
     <div class="scroll-wrapper">
       <cube-scroll ref="scroll" :data="items" :options="options" @pulling-up="onPullingUp">
         <div class="scroll-box">
@@ -41,6 +42,7 @@
 
 <script>
 import { moment } from '@/common'
+import { mapState, mapMutations } from 'vuex'
 export default {
   data() {
     return {
@@ -62,7 +64,11 @@ export default {
       preType: '',
     }
   },
+  computed: {
+    ...mapState(['drawerOpen'])
+  },
   methods: {
+    ...mapMutations(['toggleDrawer']),
     async getList() {
       const toast = this.$createToast({
         txt: 'Loading...',
@@ -135,6 +141,14 @@ export default {
 
 <style lang="stylus">
 .list
+  .mask
+    background-color rgba(0,0,0, .4)
+    position fixed
+    top 0
+    bottom 0
+    left 0
+    right 0
+    z-index 100
   .scroll-wrapper
     height calc(100vh - 54px)
     width 100vw

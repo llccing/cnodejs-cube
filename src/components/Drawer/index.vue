@@ -5,8 +5,8 @@
     </div>
     <div class="drawer-body">
       <div class="menu">
-        <div class="menu-item">
-          <a href class="menu-item-link">登录</a>
+        <div @click="login" class="menu-item">
+          <a class="menu-item-link">登录</a>
           <i class="cubeic-arrow"></i>
         </div>
 
@@ -17,8 +17,7 @@
               @click.native="toggleDrawer"
               class="menu-item-link"
               :to="{ name: 'list', params: { type: item } }"
-              >{{ TYPE_NAME[item] }}</router-link
-            >
+            >{{ TYPE_NAME[item] }}</router-link>
             <i class="cubeic-arrow"></i>
           </div>
         </div>
@@ -30,14 +29,15 @@
               href="https://github.com/llccing/cnodejs-cube"
               target="_blank"
               class="menu-item-link"
-              >给个star吧，亲</a
-            >
+            >给个star吧，亲</a>
             <i class="cubeic-arrow"></i>
           </div>
           <div class="menu-item">
-            <a href="https://llccing.github.io/FrontEnd/" target="_blank" class="menu-item-link"
-              >了解作者</a
-            >
+            <a
+              href="https://llccing.github.io/FrontEnd/"
+              target="_blank"
+              class="menu-item-link"
+            >了解作者</a>
             <i class="cubeic-arrow"></i>
           </div>
         </div>
@@ -60,7 +60,47 @@ export default {
     ...mapState(['drawerOpen'])
   },
   methods: {
-    ...mapMutations(['toggleDrawer'])
+    ...mapMutations(['toggleDrawer']),
+    login() {
+      this.$createDialog({
+        type: 'prompt',
+        title: '登录',
+        content: 'PC端登录https://cnodejs.org/，配置页中即可看到Access Token',
+        prompt: {
+          value: '',
+          placeholder: '请输入从cnodejs.org网站获取的token',
+        },
+        onConfirm: (e, token) => {
+          if (!token.trim()) {
+            this.$createToast({
+              type: 'warn',
+              time: 1000,
+              txt: '请输入合法token',
+            }).show()
+            return
+          }
+          this.doLogin(token)
+        }
+      }).show()
+    },
+
+    // 调用登录接口
+    async doLogin(accesstoken) {
+      const res = await this.$axios.post('/accesstoken', { accesstoken })
+      const data = res.data
+      this.getUserInfo(data.loginname)
+    },
+
+    // 获取更详细的用户信息
+    async getUserInfo(loginname) {
+      const res = await this.$axios.get(`/user/${loginname}`)
+      console.log('getUserInfo', res)
+    },
+
+    // 获取我的消息
+    async getMsg(){
+      // const res = await this.$axios.get('')
+    }
   }
 }
 </script>
@@ -72,6 +112,7 @@ export default {
   height 100vh
   background-color #fff
   width 270px
+  z-index 101
   .drawer-header
     background-color #444
     height 40px

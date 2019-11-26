@@ -22,6 +22,7 @@ export default {
 #app
   font-size 14px
   height 100vh
+  position fixed
   .drawer
     position fixed
     top 0

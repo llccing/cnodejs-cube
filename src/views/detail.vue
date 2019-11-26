@@ -14,7 +14,6 @@
         <div class="visit-count">{{detailData.visit_count}}次浏览</div>
       </div>
     </div>
-
     <div class="content-wrap" v-html="detailData.content"></div>
   </div>
 </template>
@@ -32,7 +31,7 @@ export default {
   },
   methods: {
     async getDetail (id) {
-      const res = await this.$axios.get(`https://cnodejs.org/api/v1/topic/${id}`)
+      const res = await this.$axios.get(`/topic/${id}`)
       const { data } = res.data
       // 时间格式化
       data.create_at_format = moment(data.create_at).fromNow()

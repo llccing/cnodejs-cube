@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" >
     <nav-bar @on-back="onBack" :title="title">
       <div v-if="title !== '详情'" slot="left" class="navbar-left" @click="toggleDrawer">
         <img class="logo" src="../assets/menu.svg" alt />
@@ -16,7 +16,6 @@ export default {
   data() {
     return {
       title: '顶部栏',
-      showDrawer: false,
     }
   },
   methods: {
