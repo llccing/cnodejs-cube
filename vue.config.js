@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath: '/cnodejs-cube/',
+  publicPath: process.env.NODE_ENV === 'production' ? '/cnodejs-cube/': '/',
   css: {
     loaderOptions: {
       stylus: {
