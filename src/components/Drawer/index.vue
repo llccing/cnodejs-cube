@@ -27,7 +27,7 @@
           <div class="menu-group-title">其他</div>
           <div class="menu-item">
             <a
-              href="https://github.com/llccing-demo/cube-demo"
+              href="https://github.com/llccing/cnodejs-cube"
               target="_blank"
               class="menu-item-link"
               >给个star吧，亲</a
